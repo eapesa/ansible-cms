@@ -1,0 +1,26 @@
+body {
+  display: block;
+}
+
+.navigation-panel {
+  width: 320px;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  z-index: 999;
+  background-color: #f7f7f7;
+}
+
+.navigation-logo {
+  background-image: url("/images/ic_echo_name_logo.png");
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 255px;
+  height: 100px;
+  top: 26px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}

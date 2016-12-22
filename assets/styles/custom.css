@@ -1,0 +1,209 @@
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-family: 'Roboto', helvetica neue, sans-serif;
+  font-size: calc(14px + .2vw);
+  line-height: calc(1.45rem + .2vw);
+  color: #555;
+}
+
+body {
+  display: block;
+}
+
+a, a:hover, a:active, a:link {
+    text-decoration: none;
+}
+
+.navigation-panel {
+  width: 320px;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  position: fixed;
+  z-index: 999;
+  background-color: #f7f7f7;
+}
+
+.navigation-logo {
+  background-image: url(/images/ic_echo_name_brand.png);
+  background-repeat: no-repeat;
+  position: absolute;
+  width: 255px;
+  height: 100px;
+  top: 60px;
+  left: 0px;
+  right: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#fb-login {
+  background-color: #3B5998;
+  border: none;
+  border-radius: 4px;
+  height: 32px;
+  width: 80%;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 300;
+  position: absolute;
+  top: 220px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  padding-top: 8px;
+}
+
+.main-panel {
+  margin-top: 85px;
+  margin-left: 340px;
+  position: absolute;
+  height: 700px;
+}
+
+.nav-user-info {
+  font-size: 14px;
+  font-weight: 300;
+  position: absolute;
+  top: 196px;
+  width: 100%;
+  text-align: center;
+}
+
+.nav-menu-rows {
+  position: absolute;
+  top: 218px;
+}
+
+.nav-menu-row {
+  height: 55px;
+  width: 320px;
+  color: #4a4a4a;
+  cursor: pointer;
+}
+
+.nav-menu-row:hover {
+  background-color: #A9A9A9;
+  color: #3B5998;
+}
+
+.nav-menu-label {
+  display: inline-block;
+  font-size: 20px;
+  font-family: helvetica neue;
+  font-weight: 300;
+  position: relative;
+  top: 16px;
+  width: 200px;
+  left: 15px
+}
+
+.content-body {
+  position: relative;
+  width: 600px;
+  height: 532px;
+  overflow: scroll;
+  padding: 40px;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1)
+}
+
+.fixed-footer {
+  position: absolute;
+  top: 424px;
+
+}
+
+.message-list {
+  width: 100%;
+  overflow-y: scroll;
+  height: 360px
+}
+
+.message-list-member {
+  width: 572px;
+  border-radius: 4px;
+  padding: 14px;
+  background-color: #3b5998;
+  color: #ffffff;
+  margin-bottom: 12px;
+  margin-bottom: 12px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.member-receiver {
+  height: 14px;
+  font-weight: 350;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.member-message {
+  height: 100%;
+  font-size: 14px;
+  font-weight: 300;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.member-timestamp {
+  height: 12px;
+  font-size: 10px;
+  font-weight: 300;
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.message-receiver-details {
+  margin-bottom: 10px
+}
+
+.message-label-to {
+  font-weight: 300;
+  margin-right: 8px;
+}
+
+.message-input-to {
+  width: 256px;
+  height: 28px;
+  border-radius: 4px;
+  border-color: gray;
+  border-width: 1px;
+  padding: 4px;
+  font-size: 15px;
+  font-weight: 300
+}
+
+.message-input {
+  position: relative;
+}
+
+#message-textarea {
+  height: 80px;
+  width: 512px;
+  resize: none;
+  overflow-y: scroll;
+  padding: 6px;
+  padding-right: 80px;
+  border-radius: 4px;
+  border-color: gray;
+  font-size: 14px;
+}
+
+#message-submit {
+  position: absolute;
+  width: 64px;
+  height: 30px;
+  background-color: #3b5998;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 14px;
+  top: 58px;
+  right: 6px
+}

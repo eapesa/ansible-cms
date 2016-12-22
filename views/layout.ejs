@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Echo</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="icon" href="/images/ic_echo_name_logo.png" type="image/png">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:100,100italic,700,700italic,300,300italic,500,500italic' rel='stylesheet' type='text/css'>
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/custom.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+  </head>
+
+  <body>
+    <!-- <%- body %> -->
+    <% 
+        var userId = false;
+        var displayName = false;
+        if (req.session.user && req.session.user.id){ 
+          userId = req.session.user.id;
+          displayName = req.session.user.displayName;
+        }
+    %>
+
+    <div class="navigation-panel">
+      <div class="navigation-logo"></div>
+      <!-- The tabs for messages once logged in -->
+      <% if (userId) { %>
+        <div class="nav-user-info" id="user-info">
+          Logged in as: &nbsp; <b><%- displayName %></b>
+        </div>
+        <div class="nav-menu-rows">
+          <a href="/messages">
+            <div class="nav-menu-row">
+              <div class="nav-menu-label">Message</div>
+            </div>
+          </a>
+
+          <a href="/logout/facebook">
+            <div class="nav-menu-row">
+              <div class="nav-menu-label">Logout</div>
+            </div>
+          </a>
+        </div>
+
+      <% } else { %>
+        <div class="navigation-auth">
+          <!-- <a href="
+            <% if (!userId) { %>
+              /auth/facebook
+            <% } else { %>
+              /logout/facebook
+            <% } %>">
+              <div id="fb-login">
+                <% if (!userId){ %>
+                      Login via Facebook
+                <% } else { %>
+                      Logout in Facebook
+                <% } %>
+              </div>
+          </a> -->
+          <a href="/auth/facebook">
+            <div id="fb-login">Login via Facebook</div>
+          </a>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="main-panel">
+    <% if (!userId) { %>
+      <div class="error">
+        Encountered error!!! DX
+      </div>
+    <% } else { %>
+      <%- body %>
+    <% } %>
+    </div>
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dependencies/jquery-2.1.4.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>

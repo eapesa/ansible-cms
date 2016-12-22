@@ -1,0 +1,145 @@
+{
+  "project_info": {
+    "project_number": "679340772847",
+    "firebase_url": "https://echo-de001.firebaseio.com",
+    "project_id": "echo-de001",
+    "storage_bucket": "echo-de001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679340772847:android:8fe6e08ea4a5d81a",
+        "android_client_info": {
+          "package_name": "com.ansible.echo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679340772847-7kngme9ssv53avkujeqjul8dki0iqlg7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ansible.echo",
+            "certificate_hash": "23C4EAB7E5671C8FAF907E5CD2122944DE16B400"
+          }
+        },
+        {
+          "client_id": "679340772847-7rs1odou012ogm7dodnp5uuheb5ev5aq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ansible.echo",
+            "certificate_hash": "D85F28C035224B8C096A569F8B01645EB5BF22DE"
+          }
+        },
+        {
+          "client_id": "679340772847-n634466bup6as3q6ts9h1l29bolu7a1q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ansible.echo",
+            "certificate_hash": "F7738688351526F909529CCDBEAFD938E0A7D658"
+          }
+        },
+        {
+          "client_id": "679340772847-javatakb897tfk5vj99erug4urc3h322.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClA4h9o5Ewo0oUJZXTvd7OoKNGth56a5g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679340772847-ktl7dji053n39ffjf7c4ronb1fi7390i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ansible.echo"
+              }
+            },
+            {
+              "client_id": "679340772847-javatakb897tfk5vj99erug4urc3h322.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679340772847:android:dd321dc2da533dd1",
+        "android_client_info": {
+          "package_name": "io.ansible.echo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679340772847-t8io8rtecfjlpp8rha55gkk6cgs8086q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ansible.echo",
+            "certificate_hash": "9D32FBBD2E847753896695B0FF05D1CC73ABB84B"
+          }
+        },
+        {
+          "client_id": "679340772847-bhfh22u3255j1utud85dqn4meijch15v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ansible.echo",
+            "certificate_hash": "23C4EAB7E5671C8FAF907E5CD2122944DE16B400"
+          }
+        },
+        {
+          "client_id": "679340772847-a8amb3bic5gelc3vudn5k9tdfnrii3r1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ansible.echo",
+            "certificate_hash": "F7738688351526F909529CCDBEAFD938E0A7D658"
+          }
+        },
+        {
+          "client_id": "679340772847-javatakb897tfk5vj99erug4urc3h322.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClA4h9o5Ewo0oUJZXTvd7OoKNGth56a5g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679340772847-ktl7dji053n39ffjf7c4ronb1fi7390i.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ansible.echo"
+              }
+            },
+            {
+              "client_id": "679340772847-javatakb897tfk5vj99erug4urc3h322.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
