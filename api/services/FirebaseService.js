@@ -14,8 +14,7 @@ module.exports = {
     database = firebase.database();
   },
 
-  write: function(userid, destination, message) {
-    var tsNow = Date.now();
+  write: function(userid, destination, message, tsNow) {
     var newPostKey = firebase.database().ref().child("messages").push().key;
     var url = "messages/ipcs/" + userid + "/" + destination + "/" + newPostKey;
     database.ref(url).set({

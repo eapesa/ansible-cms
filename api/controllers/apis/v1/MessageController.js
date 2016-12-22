@@ -18,13 +18,31 @@ module.exports = {
         return callback();
       },
 
-      toVcm: ["validate", function(callback, result) {
-        // Create library to generate JWT for Notification API
+      getToken: function(callback) {
+        Cache.client.get("echo:" + req.body.userId, function(err, result) {
+          if (err || !result) {
+            return callback({
+              status: 401,
+              error: {
+                code: -2,
+                message: "Unauthorized or session expired"
+              }
+            });
+          }
+
+          var token = result.split(":")[1];
+          callback(null, {
+            ansibleToken: token
+          });
+        });
+      },
+
+      toVcm: ["validate", "getToken", function(callback, result) {
         request.post({
           url: "http://runic.voyager.ph/v1/notification/sms",
           headers: {
             "Content-Type": "application/json",
-            "X-JWT": req.body.token
+            "X-JWT": result.getToken.ansibleToken
           },
           body: JSON.stringify({
             destination: req.body.destination,
@@ -52,12 +70,11 @@ module.exports = {
         });
       }],
 
-      toFirebase: ["validate", function(callback, result) {
-        // var userId = req.body.userId;
-        var userId = "141";
+      toFirebase: ["validate", "getToken", function(callback, result) {
+        var decoded = jwt.decode(result.getToken.ansibleToken, {complete: true});
+        var userId = decoded.payload.sub;
 
-        // Timestamp to follow must be from the front end.
-        FirebaseService.write("141", req.body.destination, req.body.message);
+        FirebaseService.write(decoded.payload.sub, req.body.destination, req.body.message, req.body.timestamp);
         return callback();
       }]
 

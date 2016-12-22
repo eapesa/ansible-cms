@@ -95,26 +95,16 @@ ansibleAuth = function(authDetails, callback) {
       });
     }
 
-    var response = JSON.parse(resp.body)
-    Cache.client.setex("facebook:" + authDetails.profile.id, 2000, response.api_token, 
+    var response = JSON.parse(resp.body);
+    var decoded = jwt.decode(response.api_token, {complete: true});
+    var expiry = decoded.payload.exp - decoded.payload.iat - 10;
+    Cache.client.setex("echo:" + authDetails.profile.id, expiry, "facebook:" + response.api_token, 
       function(err, result) {});
 
     callback({
-      id: "141",
+      id: authDetails.profile.id,
       displayName: authDetails.profile.displayName,
       code: 0
     });
   });
 }
-
-// res.status(503)
-//                 .json({
-//                   code: -2,
-//                   message: "System encountered error"
-//                 });
-
-// res.status(200)
-//           .json({
-//             code: 0,
-//             message: "Operation completed successfully"
-//           });

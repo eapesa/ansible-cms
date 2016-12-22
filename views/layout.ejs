@@ -30,13 +30,13 @@
       <div class="navigation-logo"></div>
       <!-- The tabs for messages once logged in -->
       <% if (userId) { %>
-        <div class="nav-user-info" id="user-info">
+        <div class="nav-user-info" id="user-info" userId="<%- userId %>">
           Logged in as: &nbsp; <b><%- displayName %></b>
         </div>
         <div class="nav-menu-rows">
           <a href="/messages">
             <div class="nav-menu-row">
-              <div class="nav-menu-label">Message</div>
+              <div class="nav-menu-label">Messages</div>
             </div>
           </a>
 
