@@ -18,14 +18,21 @@ module.exports = {
 
   passport: {  
     facebook: {
-      clientId: "770601733096605",
-      clientSecret: "9143a828e405f16969f4cdb2e0b7b31c"
+      clientId: "_FB_ID_",
+      clientSecret: "_FB_SECRET_"
     }
   },
 
   ansible: {
-    username: "BXSampleKey",
-    password: "BXSampleSecret"
+    username: "_ANSIBLE_KEY_",
+    password: "_ANSIBLE_SECRET_"
+  },
+
+  url: {
+    sms: "http://runic.voyager.ph/v1/notification/sms",
+    token: "http://runic.voyager.ph/v1/auth/token",
+    facebook: "http://localhost:8000/auth/facebook/callback",
+    firebase: "https://echo-de001.firebaseio.com"
   }
 
 };

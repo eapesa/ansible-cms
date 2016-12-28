@@ -67,7 +67,7 @@ ansibleAuth = function(authDetails, callback) {
   var basic = "Basic " + new Buffer(sails.config.ansible.username + ":" + 
     sails.config.ansible.password).toString("base64");
   request.get({
-    url: "http://runic.voyager.ph/v1/auth/token",
+    url: sails.config.url.token,
     headers: {
       authorization: basic
     },

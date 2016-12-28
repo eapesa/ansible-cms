@@ -8,7 +8,7 @@ module.exports = {
 
     firebase.initializeApp({
       credential: firebase.credential.cert(serviceAccount),
-      databaseURL: "https://echo-de001.firebaseio.com"
+      databaseURL: sails.config.url.firebase
     });
 
     database = firebase.database();

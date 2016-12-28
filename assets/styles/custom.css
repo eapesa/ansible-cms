@@ -57,6 +57,50 @@ a, a:hover, a:active, a:link {
   padding-top: 8px;
 }
 
+.response-panel {
+  margin-bottom: 24px;
+  border-radius: 6px;
+  padding: 14px;
+  width: 653px
+}
+
+.response-panel-success {
+  background-color: #f2fae3;
+  color: #659f3d;
+}
+
+.response-panel-error {
+  background-color: #fff1f0;
+  color: #dc5030;
+}
+
+.response-title {
+  font-size: 22px;
+  margin-bottom: 6px
+}
+
+.response-message {
+  font-size: 16px;
+  font-weight: 300
+}
+
+.response-cancel {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  cursor: pointer;
+}
+
+.response-cancel-success {
+  background-image: url(/images/close-success.png);
+}
+
+.response-cancel-error {
+  background-image: url(/images/close-error.png);
+}
+
 .main-panel {
   margin-top: 85px;
   margin-left: 340px;
@@ -99,6 +143,18 @@ a, a:hover, a:active, a:link {
   top: 16px;
   width: 200px;
   left: 15px
+}
+
+.welcome {
+  font-size: 26px;
+  font-weight: 300;
+  font-style: italic;
+  color: gray;
+}
+
+.welcome-user {
+  color: #3b5998;
+  font-weight: 400;
 }
 
 .content-body {

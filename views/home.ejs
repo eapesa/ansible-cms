@@ -1,3 +1,10 @@
-<div>
-	Welcome! :D
+<div class="welcome">
+  <% if (req.session.user && req.session.user.displayName) { %>
+    Hi 
+    <label class="welcome-user"><%- req.session.user.displayName %>
+    </label>
+    !
+  <% } else { %>
+    Please login.
+  <% } %>
 </div>

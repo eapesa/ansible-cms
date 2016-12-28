@@ -12,7 +12,35 @@ Date.prototype.yyyymmddhhMM = function() {
           (MM[1]?MM:"0"+MM[0])
 };
 
+function viewResponse(type, status, message) {
+  if (type === "success") {
+    $(".response-panel").removeClass("response-panel-error");
+    $(".response-panel").addClass("response-panel-success");
+
+    $(".response-cancel").removeClass("response-cancel-error");
+    $(".response-cancel").addClass("response-cancel-success");
+
+    $(".response-title").text("Success " + status);
+  } else {
+    $(".response-panel").removeClass("response-panel-success");
+    $(".response-panel").addClass("response-panel-error");
+
+    $(".response-cancel").removeClass("response-cancel-success");
+    $(".response-cancel").addClass("response-cancel-error");
+
+    $(".response-title").text("Error " + status);
+  }
+  $(".response-message").text(message);
+  $(".response-panel").show();
+}
+
 $(document).ready(function() {
+
+  $(".response-panel").hide();
+
+  $(".response-cancel").on("click", function() {
+    $(".response-panel").hide();
+  });
 
   //***Send Message***//
   $("#message-submit").on("click", function() {
@@ -56,6 +84,7 @@ $(document).ready(function() {
                   .text(now)))   
         } else {
           console.log("Encountered error: " + JSON.stringify(response));
+          viewResponse("error", xhr.status, response.message);
         }
       }
     });

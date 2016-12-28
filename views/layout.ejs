@@ -71,13 +71,19 @@
     </div>
 
     <div class="main-panel">
-    <% if (!userId) { %>
-      <div class="error">
-        Encountered error!!! DX
+      <div class="response-panel">
+        <div class="response-title">
+        </div>
+        <div class="response-message">
+        </div>
+        <div class="response-cancel">
+        </div>
       </div>
-    <% } else { %>
-      <%- body %>
-    <% } %>
+
+      
+      <% if (userId) { %>
+        <%- body %>
+      <% } %>
     </div>
 
     <!--SCRIPTS-->

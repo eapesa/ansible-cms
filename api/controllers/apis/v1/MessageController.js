@@ -39,7 +39,7 @@ module.exports = {
 
       toVcm: ["validate", "getToken", function(callback, result) {
         request.post({
-          url: "http://runic.voyager.ph/v1/notification/sms",
+          url: sails.config.url.sms,
           headers: {
             "Content-Type": "application/json",
             "X-JWT": result.getToken.ansibleToken
@@ -94,3 +94,4 @@ module.exports = {
 }
 
 // https://firebase.google.com/docs/admin/setup
+// https://www.vultr.com/docs/installing-node-js-from-source-on-ubuntu-14-04
