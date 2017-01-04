@@ -13,7 +13,8 @@ module.exports.routes = {
   
   "GET /"             : "web/PagesController.login",
   "GET /home"         : "web/PagesController.home",
-  "GET /messages"     : "web/PagesController.messages",
+  "GET /composer"     : "web/PagesController.composer",
+  "GET /inbox"        : "web/PagesController.inbox",
 
-  "POST /v1/messages" : "apis/v1/MessageController.send"
+  "POST /v1/sms"   : "apis/v1/MessageController.send"
 };

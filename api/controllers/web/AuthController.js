@@ -54,12 +54,10 @@ module.exports = {
   },
 
   fbLogout: function(req, res) {
-    req.session.user = {
-      id: false,
-      code: -1,
-      message: "User logged out."
-    };
-    res.redirect("/");
+    Cache.client.del("echo:" + req.session.user.id, function() {});
+    req.session.destroy(function(err) {
+      res.redirect("/");
+    });
   }
 }
 
@@ -98,11 +96,13 @@ ansibleAuth = function(authDetails, callback) {
     var response = JSON.parse(resp.body);
     var decoded = jwt.decode(response.api_token, {complete: true});
     var expiry = decoded.payload.exp - decoded.payload.iat - 10;
-    Cache.client.setex("echo:" + authDetails.profile.id, expiry, "facebook:" + response.api_token, 
-      function(err, result) {});
+    var key = "echo:" + authDetails.profile.id;
+    var value = "access_token=" + response.api_token + ":refresh_token=" + response.api_refresh_token;
+    Cache.client.setex(key, expiry, value, function(err, result) {});
 
     callback({
-      id: authDetails.profile.id,
+      ansible_id: decoded.payload.sub,
+      profile_id: authDetails.profile.id,
       displayName: authDetails.profile.displayName,
       code: 0
     });

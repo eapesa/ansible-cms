@@ -19,9 +19,11 @@
     <!-- <%- body %> -->
     <% 
         var userId = false;
+        var fbId = false;
         var displayName = false;
-        if (req.session.user && req.session.user.id){ 
-          userId = req.session.user.id;
+        if (req.session.user && req.session.user.profile_id && req.session.user.ansible_id){ 
+          userId = req.session.user.profile_id;
+          fbId = req.session.user.ansible_id;
           displayName = req.session.user.displayName;
         }
     %>
@@ -30,19 +32,23 @@
       <div class="navigation-logo"></div>
       <!-- The tabs for messages once logged in -->
       <% if (userId) { %>
-        <div class="nav-user-info" id="user-info" userId="<%- userId %>">
+        <div class="nav-user-info" id="user-info" userId="<%- userId %>" fbId="<%- fbId %>">
           Logged in as: &nbsp; <b><%- displayName %></b>
         </div>
         <div class="nav-menu-rows">
-          <a href="/messages">
-            <div class="nav-menu-row">
-              <div class="nav-menu-label">Messages</div>
-            </div>
-          </a>
-
           <a href="/logout/facebook">
             <div class="nav-menu-row">
               <div class="nav-menu-label">Logout</div>
+            </div>
+          </a>
+          <a href="/composer">
+            <div class="nav-menu-row">
+              <div class="nav-menu-label">Send SMS</div>
+            </div>
+          </a>
+          <a href="/inbox">
+            <div class="nav-menu-row">
+              <div class="nav-menu-label">Inbox</div>
             </div>
           </a>
         </div>
@@ -86,10 +92,15 @@
       <% } %>
     </div>
 
+    <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
     <!--SCRIPTS-->
     <script src="/js/dependencies/sails.io.js"></script>
     <script src="/js/dependencies/jquery-2.1.4.min.js"></script>
     <script src="/js/custom.js"></script>
+    <script src="/js/fbmessages.js"></script>
     <!--SCRIPTS END-->
+    
   </body>
 </html>
+
+<!-- <script src="https://echo-de001.firebaseio.com/messages.json?callback=gotData"></script> -->

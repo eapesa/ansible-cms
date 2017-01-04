@@ -21,6 +21,7 @@ module.exports = {
       getToken: function(callback) {
         Cache.client.get("echo:" + req.body.userId, function(err, result) {
           if (err || !result) {
+            req.session.destroy(function(err) {});
             return callback({
               status: 401,
               error: {
@@ -30,7 +31,8 @@ module.exports = {
             });
           }
 
-          var token = result.split(":")[1];
+          var tokenDetails = result.split(":")[0];
+          var token = tokenDetails.split("=")[1];
           callback(null, {
             ansibleToken: token
           });
@@ -63,7 +65,7 @@ module.exports = {
             return callback({
               status: resp.statusCode,
               error: JSON.parse(resp.body)
-            })
+            });
           }
 
           return callback();
@@ -73,15 +75,15 @@ module.exports = {
       toFirebase: ["validate", "getToken", function(callback, result) {
         var decoded = jwt.decode(result.getToken.ansibleToken, {complete: true});
         var userId = decoded.payload.sub;
-
-        FirebaseService.write(decoded.payload.sub, req.body.destination, req.body.message, req.body.timestamp);
+        var destination = req.body.destination
+        FirebaseService.write(userId, destination.substr(1), req.body.message, req.body.timestamp);
         return callback();
       }]
 
     }, function(error, result) {
       if (error) {
         res.status(error.status)
-           .json(error.error);
+          .json(error.error);     
       } else {
         res.status(200)
            .json({

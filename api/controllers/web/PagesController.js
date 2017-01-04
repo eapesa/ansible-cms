@@ -9,8 +9,13 @@ module.exports = {
     return res.view("home.ejs", {title: "Home"});
   },
 
-  messages: function(req, res) {
+  composer: function(req, res) {
     req.session.message = false;
-    return res.view("messages.ejs", {title: "Message"});
+    return res.view("composer.ejs", {title: "Send SMS"});
+  },
+
+  inbox: function(req, res) {
+    req.session.message = false;
+    return res.view("inbox.ejs", {title: "Inbox"});
   }
 }
