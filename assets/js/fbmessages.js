@@ -26,7 +26,7 @@ $(document).ready(function() {
           // .attr("href", "/inbox")
           .attr("id", "menu-" + partner)
           .addClass("menu-message")
-          .append(
+          .prepend(
             $("<div/>")
               .addClass("nav-menu-row")
               .append(
@@ -61,7 +61,7 @@ $(document).ready(function() {
         var packetId = contents[i].packetId;
         if ($inbox.find("div#inbox-member"+packetId).length === 0) {
           var dt = new Date(contents[i].timeStamp * 1000);
-          $inbox.append(
+          $inbox.prepend(
             $("<div/>")
               .addClass("message-list-member")
               .attr("id", "inbox-member"+packetId)
