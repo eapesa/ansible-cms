@@ -23,7 +23,7 @@ $(document).ready(function() {
       if ($contacts.find("a#menu-" + partner).length === 0) {
         $contacts.append(
         $("<a/>")
-          .attr("href", "/inbox")
+          // .attr("href", "/inbox")
           .attr("id", "menu-" + partner)
           .addClass("menu-message")
           .append(
@@ -36,39 +36,49 @@ $(document).ready(function() {
               )
           )
         )
-      }
 
-      var messageList = $("#content-body-inbox");
-      $list = $( messageList );
-      $list
-        .append(
-          $("<div/>")
-            .addClass("message-list")
-            .attr("id", "inbox-"+partner)
-        );
+        if ($("#inbox").attr("data-state") === "false") {
+          $("#menu-"+partner).addClass("hidden");
+        } else {
+          $("#menu-"+partner).removeClass("hidden");
+        }
+
+        var messageList = $("#content-body-inbox");
+        $list = $( messageList );
+        $list
+          .append(
+            $("<div/>")
+              .addClass("message-list")
+              .addClass("inbox-list")
+              .attr("id", "inbox-"+partner)
+          );
+      }
 
       var contents = data.val();
       $inbox = $( $("#inbox-" + partner) );
 
       for (var i in contents) {
-        $inbox.append(
-          $("<div/>")
-            .addClass("message-list-member")
-            .append(
-              $("<div/>")
-                .addClass("member-receiver")
-                .text("From: " + contents[i].senderId))
-            .append(
-              $("<div/>")
-                .addClass("member-message")
-                .text(contents[i].payload))
-            .append(
-              $("<div/>")
-                .addClass("member-timestamp")
-                .text(contents[i].timeStamp)))
+        var packetId = contents[i].packetId;
+        if ($inbox.find("div#inbox-member"+packetId).length === 0) {
+          var dt = new Date(contents[i].timeStamp * 1000);
+          $inbox.append(
+            $("<div/>")
+              .addClass("message-list-member")
+              .attr("id", "inbox-member"+packetId)
+              .append(
+                $("<div/>")
+                  .addClass("member-receiver")
+                  .text("From: " + contents[i].senderId))
+              .append(
+                $("<div/>")
+                  .addClass("member-message")
+                  .text(contents[i].payload))
+              .append(
+                $("<div/>")
+                  .addClass("member-timestamp")
+                  .text(dt)))
+        }
       }
-
-
     });
   });
 });

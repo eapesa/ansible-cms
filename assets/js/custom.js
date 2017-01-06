@@ -53,7 +53,7 @@ $(document).ready(function() {
 
     $.ajax({
       type  : "POST",
-      url   : "/v1/messages",
+      url   : "/v1/sms",
       data  : JSON.stringify({
         destination : destination,
         message     : newMessage,
@@ -67,21 +67,23 @@ $(document).ready(function() {
         if (xhr.status === 200) {
           var messageList = $(".message-list")
           $list = $( messageList );
-          $list.append(
-            $("<div/>")
-              .addClass("message-list-member")
-              .append(
-                $("<div/>")
-                  .addClass("member-receiver")
-                  .text("To: " + destination))
-              .append(
-                $("<div/>")
-                  .addClass("member-message")
-                  .text(newMessage))
-              .append(
-                $("<div/>")
-                  .addClass("member-timestamp")
-                  .text(now)))   
+          $list
+            .addClass("message-inbox")
+            .append(
+              $("<div/>")
+                .addClass("message-list-member")
+                .append(
+                  $("<div/>")
+                    .addClass("member-receiver")
+                    .text("To: " + destination))
+                .append(
+                  $("<div/>")
+                    .addClass("member-message")
+                    .text(newMessage))
+                .append(
+                  $("<div/>")
+                    .addClass("member-timestamp")
+                    .text(now)))   
         } else {
           console.log("Encountered error: " + JSON.stringify(response));
           viewResponse("error", xhr.status, response.message);
@@ -90,4 +92,30 @@ $(document).ready(function() {
     });
   });
 
+  // $("#inbox").on("click", function() {
+  //   console.log("clicked inbox!");
+  //   console.log($("#inbox").attr("data-state"));
+  //   $(this).attr("data-state", "true");
+  //   console.log($("#inbox").attr("data-state"));
+  //   $(this).siblings().attr("data-state", "false");
+    
+  // });
+
+  // $("#composer").on("click", function() {
+  //   console.log("clicked composer!");
+  //   $(this).attr("data-state", "true");
+  //   $(this).siblings().attr("data-state", "false");
+  // });
+
+});
+
+$(document).on("click", "div.nav-menu-label", function() {
+  // $(".menu-message").removeClass("hidden");
+});
+
+$(document).on("click", "a.menu-message", function() {
+  var elemId = $(this).attr("id");
+  var id = elemId.split("-")[1];
+  $("#inbox-"+id).removeClass("hidden");
+  $("#inbox-"+id).siblings().addClass("hidden");
 });

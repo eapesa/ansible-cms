@@ -21,10 +21,20 @@
         var userId = false;
         var fbId = false;
         var displayName = false;
+        var inboxState = false;
+        var otherState = true;
         if (req.session.user && req.session.user.profile_id && req.session.user.ansible_id){ 
           userId = req.session.user.profile_id;
           fbId = req.session.user.ansible_id;
           displayName = req.session.user.displayName;
+        }
+
+        if (title === "Inbox") {
+          inboxState = true;
+          otherState = false;
+        } else {
+          inboxState = false;
+          otherState = true;
         }
     %>
 
@@ -36,17 +46,17 @@
           Logged in as: &nbsp; <b><%- displayName %></b>
         </div>
         <div class="nav-menu-rows">
-          <a href="/logout/facebook">
+          <a href="/logout/facebook" data-state="<%- otherState %>" id="logout" class="menu-labels">
             <div class="nav-menu-row">
               <div class="nav-menu-label">Logout</div>
             </div>
           </a>
-          <a href="/composer">
+          <a href="/composer" data-state="<%- otherState %>" id="composer" class="menu-labels">
             <div class="nav-menu-row">
               <div class="nav-menu-label">Send SMS</div>
             </div>
           </a>
-          <a href="/inbox">
+          <a href="/inbox" data-state="<%- inboxState %>" id="inbox" class="menu-labels">
             <div class="nav-menu-row">
               <div class="nav-menu-label">Inbox</div>
             </div>
