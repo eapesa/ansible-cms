@@ -54,10 +54,14 @@ module.exports = {
   },
 
   fbLogout: function(req, res) {
-    Cache.client.del("echo:" + req.session.user.id, function() {});
-    req.session.destroy(function(err) {
+    if (!req.session || !req.session.user) {
       res.redirect("/");
-    });
+    } else {
+      Cache.client.del("echo:" + req.session.user.profile_id, function() {});
+      req.session.destroy(function(err) {
+        res.redirect("/");
+      });
+    }
   }
 }
 
