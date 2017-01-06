@@ -72,6 +72,7 @@ $(document).ready(function() {
             .append(
               $("<div/>")
                 .addClass("message-list-member")
+                .addClass("message-list-member-composer")
                 .append(
                   $("<div/>")
                     .addClass("member-receiver")

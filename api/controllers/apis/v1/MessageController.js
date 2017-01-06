@@ -72,11 +72,21 @@ module.exports = {
         });
       }],
 
-      toFirebase: ["validate", "getToken", function(callback, result) {
+      toFirebaseQueue: ["validate", "getToken", function(callback, result) {
         var decoded = jwt.decode(result.getToken.ansibleToken, {complete: true});
         var userId = decoded.payload.sub;
         var destination = req.body.destination
-        FirebaseService.write(userId, destination.substr(1), req.body.message, req.body.timestamp);
+        FirebaseService.write("messages/ipcs", userId, destination.substr(1), req.body.message, 
+          req.body.timestamp);
+        return callback();
+      }],
+
+      toFirebaseArchive: ["validate", "getToken", function(callback, result) {
+        var decoded = jwt.decode(result.getToken.ansibleToken, {complete: true});
+        var userId = decoded.payload.sub;
+        var destination = req.body.destination
+        FirebaseService.write("conversations", userId, destination.substr(1), req.body.message, 
+          req.body.timestamp);
         return callback();
       }]
 

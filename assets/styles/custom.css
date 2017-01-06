@@ -197,15 +197,35 @@ a, a:hover, a:active, a:link {
 }
 
 .message-list-member {
-  width: 572px;
   border-radius: 4px;
   padding: 14px;
-  background-color: #3b5998;
-  color: #ffffff;
   margin-bottom: 12px;
   margin-bottom: 12px;
   word-break: break-all;
   word-wrap: break-word;
+}
+
+.message-list-member-composer {
+  width: 572px;
+  background-color: #3b5998;
+  color: #ffffff;
+}
+
+.message-list-member-me {
+  width: 350px;
+  margin-left: 222px;
+  background-color: #cccccc;
+  color: #3b5998;
+}
+
+.arrow {
+
+}
+
+.message-list-member-partner {
+  width: 350px;
+  background-color: #3b5998;
+  color: #ffffff;
 }
 
 .member-receiver {
@@ -219,12 +239,14 @@ a, a:hover, a:active, a:link {
   height: 100%;
   font-size: 14px;
   font-weight: 300;
-  padding-left: 8px;
-  padding-right: 8px;
+  /*padding-left: 8px;
+  padding-right: 8px;*/
 }
 
 .member-timestamp {
   height: 12px;
+  width: 100%;
+  text-align: right;
   font-size: 10px;
   font-weight: 300;
   font-style: italic;
