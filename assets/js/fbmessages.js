@@ -1,5 +1,5 @@
 var db = new Firebase("https://echo-de001.firebaseio.com/");
-// var db = new Firebase("https://elixaproject.firebaseio.com/");
+
 $(document).ready(function() {
   var fbId = $(".nav-user-info").attr("fbId");
   if (!fbId) {
@@ -9,9 +9,9 @@ $(document).ready(function() {
   var contactsMenu = $(".nav-menu-rows");
   $contacts = $( contactsMenu );
 
-  // var convo = db.child("messages/csip/" + fbId);
   var convo = db.child("conversations/" + fbId);
   convo.on("value", function(snapshot) {
+
     if (!snapshot.val()) {
       return false;
     }
@@ -21,12 +21,11 @@ $(document).ready(function() {
       if ($contacts.find("a#menu-" + partner).length === 0) {
         $contacts.append(
         $("<a/>")
-          // .attr("href", "/inbox")
           .attr("id", "menu-" + partner)
           .addClass("menu-message")
           .append(
             $("<div/>")
-              .addClass("nav-menu-row")
+              .addClass("nav-submenu-row")
               .append(
                 $("<div/>")
                   .addClass("nav-submenu-label")
@@ -48,6 +47,7 @@ $(document).ready(function() {
             $("<div/>")
               .addClass("message-list")
               .addClass("inbox-list")
+              .addClass("hidden")
               .attr("id", "inbox-"+partner)
           );
 
@@ -58,8 +58,8 @@ $(document).ready(function() {
 
       for (var i in contents) {
         var packetId = contents[i].packetId;
-        if ($inbox.find("div#inbox-member"+packetId).length === 0) {
-          var dt = new Date(contents[i].timeStamp * 1000);
+        if (packetId && $inbox.find("div#inbox-member"+packetId).length === 0) {
+          var dt = new Date(contents[i].timeStamp);
           $inbox.append(
             $("<div/>")
               .addClass("message-list-member")
@@ -85,8 +85,10 @@ $(document).ready(function() {
           } else {
             $("#inbox-member"+packetId).addClass("message-list-member-partner");
           }
+
         }
       }
     });
   });
+
 });

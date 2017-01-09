@@ -24,7 +24,7 @@ module.exports = {
       packetType: "simple",
       payload: message,
       senderId: userid,
-      timestamp: tsNow
+      timeStamp: tsNow
     });
   }
 

@@ -52,12 +52,12 @@
             </div>
           </a>
           <a href="/composer" data-state="<%- otherState %>" id="composer" class="menu-labels">
-            <div class="nav-menu-row">
-              <div class="nav-menu-label">Send SMS</div>
+            <div class="nav-menu-row <% if (otherState) { %> nav_menu_selected <% } %>">
+              <div class="nav-menu-label">Quick Message</div>
             </div>
           </a>
           <a href="/inbox" data-state="<%- inboxState %>" id="inbox" class="menu-labels">
-            <div class="nav-menu-row">
+            <div class="nav-menu-row <% if (inboxState) { %> nav_menu_selected <% } %>">
               <div class="nav-menu-label">Inbox</div>
             </div>
           </a>
