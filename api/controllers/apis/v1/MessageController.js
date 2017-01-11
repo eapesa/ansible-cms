@@ -15,7 +15,16 @@ module.exports = {
           });
         }
 
-        return callback();
+        var destination = req.body.destination;
+        if (req.body.destination[0] === "0") {
+          destination = "63" + req.body.destination.substr(1);
+        } else if (req.body.destination[0] === "+") {
+          destination = req.body.destination.substr(1);
+        }
+
+        return callback(null, {
+          destination: destination
+        });
       },
 
       checkToken: function(callback) {
@@ -105,7 +114,7 @@ module.exports = {
             "X-JWT": result.getToken.ansibleToken
           },
           body: JSON.stringify({
-            destination: req.body.destination,
+            destination: "+" + result.validate.destination,
             message: req.body.message
           })
         }, function(err, resp) {
@@ -132,16 +141,16 @@ module.exports = {
 
       toFirebaseQueue: ["getToken", function(callback, result) {
         var userId = result.checkToken.userId;
-        var destination = req.body.destination
-        FirebaseService.write("messages/ipcs", userId, destination.substr(1), req.body.message, 
+        var destination = result.validate.destination;
+        FirebaseService.write("messages/ipcs", userId, destination, req.body.message, 
           req.body.timestamp);
         return callback();
       }],
 
       toFirebaseArchive: ["getToken", function(callback, result) {
-        var destination = req.body.destination
+        var destination = result.validate.destination;
         var userId = result.checkToken.userId;
-        FirebaseService.write("conversations", userId, destination.substr(1), req.body.message, 
+        FirebaseService.write("conversations", userId, destination, req.body.message, 
           req.body.timestamp);
         return callback();
       }],
