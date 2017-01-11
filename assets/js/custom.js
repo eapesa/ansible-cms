@@ -95,19 +95,17 @@ $(document).ready(function() {
 
   $("#reply-submit").on("click", function() {
     var userId = $("#user-info").attr("userId");
-    var destination = "+" + $("#inbox-content-header").attr("data-receiver");
-    console.log(destination);
+    var destination = $("#inbox-content-header").attr("data-receiver");
     var newMessage = $("#reply-textarea").val();
     var date = new Date();
-    // var now = date.yyyymmddhhMM();
     var nowTs = Date.now();
-    console.log(nowTs);
 
+    // var originalLength = $("#inbox-"+destination).children().length;
     $.ajax({
       type  : "POST",
       url   : "/v1/sms",
       data  : JSON.stringify({
-        destination : destination,
+        destination : "+" + destination,
         message     : newMessage,
         timestamp   : nowTs,
         userId      : userId
@@ -118,6 +116,7 @@ $(document).ready(function() {
         var response = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {
            var newMessage = $("#reply-textarea").val("");
+           // var newLength = $("#inbox-"+destination).children().length;
         } else {
           console.log("Encountered error: " + JSON.stringify(response));
           viewResponse("error", xhr.status, response.message);
@@ -156,13 +155,4 @@ $(document).on("click", "a.menu-message", function() {
     scrollTop: $("#inbox-"+id).get(0).scrollHeight
   });
 
-});
-
-$(document).on("DOMNodeInserted", function(e) {
-  var inboxMemberId = $(e.target).attr("id");
-  if ($(e.target).hasClass("message-list-member")) {
-    $("#"+inboxMemberId).parent().animate({
-      scrollTop: $("#"+inboxMemberId).parent().get(0).scrollHeight
-    }, "slow");
-  }
 });

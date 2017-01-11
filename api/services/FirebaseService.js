@@ -15,9 +15,7 @@ module.exports = {
   },
 
   write: function(parentPath, userid, destination, message, tsNow) {
-    var newPostKey = firebase.database().ref().child("messages").push().key;
-    // var url = "messages/ipcs/" + userid + "/" + destination + "/" + newPostKey;
-    // var url = "conversations/threads/" + userid + "/" + destination + "/" + newPostKey;
+    var newPostKey = firebase.database().ref().child(parentPath).push().key;
     var url = parentPath + "/" + userid + "/" + destination + "/" + newPostKey;
     database.ref(url).set({
       packetId: newPostKey,
@@ -25,6 +23,14 @@ module.exports = {
       payload: message,
       senderId: userid,
       timeStamp: tsNow
+    });
+  },
+
+  writeMeta: function(parentPath, userid, destination) {
+    var newPostKey = firebase.database().ref().child(parentPath).push().key;
+    var url = parentPath + "/" + userid + "/" + destination;
+    database.ref(url).set({
+      packetId: newPostKey
     });
   }
 

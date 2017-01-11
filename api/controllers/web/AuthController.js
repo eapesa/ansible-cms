@@ -102,7 +102,7 @@ ansibleAuth = function(authDetails, callback) {
     var expiry = decoded.payload.exp - decoded.payload.iat - 10;
     var key = "echo:" + authDetails.profile.id;
     var value = "access_token=" + response.api_token + ":refresh_token=" + response.api_refresh_token;
-    Cache.client.setex(key, expiry, value, function(err, result) {});
+    Cache.client.set(key, value, function(err, result) {});
 
     callback({
       ansible_id: decoded.payload.sub,
