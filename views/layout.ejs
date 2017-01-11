@@ -22,7 +22,7 @@
         var fbId = false;
         var displayName = false;
         var inboxState = false;
-        var otherState = true;
+        var otherState = false;
         if (req.session.user && req.session.user.profile_id && req.session.user.ansible_id){ 
           userId = req.session.user.profile_id;
           fbId = req.session.user.ansible_id;
@@ -32,9 +32,12 @@
         if (title === "Inbox") {
           inboxState = true;
           otherState = false;
-        } else {
+        } else if (title === "Quick Message") {
           inboxState = false;
           otherState = true;
+        } else {
+          inboxState = false;
+          otherState = false;
         }
     %>
 

@@ -11,7 +11,7 @@ module.exports = {
 
   composer: function(req, res) {
     req.session.message = false;
-    return res.view("composer.ejs", {title: "Send SMS"});
+    return res.view("composer.ejs", {title: "Quick Message"});
   },
 
   inbox: function(req, res) {
