@@ -125,26 +125,19 @@ $(document).ready(function() {
     });
   });
 
-  // $(".menu-labels").on("click", function() {
-  //   var state = $(this).attr("data-state");
-  //   $(this).addClass("nav-menu-selected");
-  //   $(this).siblings().removeClass("nav-menu-selected");
-  // });
-
   $("#composer").on("click", function() {
-    $("#inbox-content-header").addClass("hidden");
     $(".reply-div").addClass("hidden");
   });
 
 });
 
-$(document).on("click", "a.menu-message", function() {
+// $(document).on("click", "a.menu-message", function() {
+$(document).on("click", "div.contacts-member", function() {
   var elemId = $(this).attr("id");
-  var id = elemId.split("-")[1];
+  var id = elemId.split("-")[2];
 
-  $("#inbox-content-header").text(id);
-  $("#inbox-content-header").attr("data-receiver", id);
-  $("#inbox-content-header").removeClass("hidden");
+  $(this).addClass("contacts-member-selected");
+  $(this).siblings().removeClass("contacts-member-selected");
 
   $("#inbox-"+id).removeClass("hidden");
   $("#inbox-"+id).siblings().addClass("hidden");

@@ -179,7 +179,7 @@ a, a:hover, a:active, a:link {
   font-weight: 400;
 }
 
-#inbox-content-header {
+/*#inbox-content-header {
   width: 100%;
   margin-bottom: 20px;
   padding-top: 4px;
@@ -190,26 +190,98 @@ a, a:hover, a:active, a:link {
   border-bottom: solid;
   border-width: thin;
   border-color: #3b5998;
-}
+}*/
 
-.content-body {
+#composer-body {
   position: relative;
   width: 600px;
   height: 532px;
   padding: 40px;
   border-radius: 4px;
   background-color: #f7f7f7;
-  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1)
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+#inbox-body {
+  position: relative;
+  width: 600px;
+  height: 532px;
+  border-radius: 4px;
+  background-color: #f7f7f7;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.1);
+  padding-right: 6px;
+  padding-bottom: 40px;
+  padding-top: 40px;
+  width: 840px;
+}
+
+.contacts-member {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  font-weight: 300;
+  font-size: 18px;
+  margin-bottom: 6px;
+  overflow-y: scroll;
+  cursor: pointer;
+}
+
+.contacts-member:hover {
+  color: #3b5998;
+  background-color: #F7F7F7;
+  border-top: solid;
+  border-bottom: solid;
+  border-color: #3b5998;
+  border-right: solid;
+  border-right-color: #F7F7F7;
+  border-width: thin;
+  /*font-weight: 400;*/
+}
+
+.contacts-member-selected {
+  color: #3b5998;
+  background-color: #F7F7F7;
+  border-top: solid;
+  border-bottom: solid;
+  border-color: #3b5998;
+  border-right: solid;
+  border-right-color: #F7F7F7;
+  border-width: thin;
+  font-weight: 500;
+}
+
+#content-body-contacts {
+  width: 185px;
+  height: 96%;
+  border-right: solid;
+  border-width: thin;
+  border-color: #3b5998;
+  padding-top: 21px;
+  margin-top: 1px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: white;
+}
+
+#content-body-inbox {
+  width: 600px;
+  position: absolute;
+  left: 218px;
+  top: 33px;
 }
 
 .inbox-list {
-  height: 390px;
+  width: 100%;
+  height: 456px;
+  overflow-y: scroll;
 }
 
-.reply-div, .message-reply {
+.message-reply {
   position: absolute;
-  top: 492px;
-  left: 40px;
+  top: 504px;
+  left: 216px;
 }
 
 .fixed-footer {
@@ -219,7 +291,7 @@ a, a:hover, a:active, a:link {
 
 .message-list {
   width: 100%;
-  /*height: 360px;*/
+  height: 360px;
   overflow-y: scroll;
 }
 
@@ -306,6 +378,12 @@ a, a:hover, a:active, a:link {
 
 .message-input {
   position: relative;
+}
+
+.reply-div, .message-reply {
+  position: absolute;
+  top: 496px;
+  left: 216px;
 }
 
 #reply-textarea, #message-textarea {
