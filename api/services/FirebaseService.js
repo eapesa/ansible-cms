@@ -14,15 +14,23 @@ module.exports = {
     database = firebase.database();
   },
 
-  write: function(userid, destination, message, tsNow) {
-    var newPostKey = firebase.database().ref().child("messages").push().key;
-    var url = "messages/ipcs/" + userid + "/" + destination + "/" + newPostKey;
+  write: function(parentPath, userid, destination, message, tsNow) {
+    var newPostKey = firebase.database().ref().child(parentPath).push().key;
+    var url = parentPath + "/" + userid + "/" + destination + "/" + newPostKey;
     database.ref(url).set({
       packetId: newPostKey,
       packetType: "simple",
       payload: message,
       senderId: userid,
-      timestamp: tsNow
+      timeStamp: tsNow
+    });
+  },
+
+  writeMeta: function(parentPath, userid, destination) {
+    var newPostKey = firebase.database().ref().child(parentPath).push().key;
+    var url = parentPath + "/" + userid + "/" + destination;
+    database.ref(url).set({
+      packetId: newPostKey
     });
   }
 

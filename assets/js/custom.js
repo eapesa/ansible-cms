@@ -72,6 +72,7 @@ $(document).ready(function() {
             .append(
               $("<div/>")
                 .addClass("message-list-member")
+                .addClass("message-list-member-composer")
                 .append(
                   $("<div/>")
                     .addClass("member-receiver")
@@ -92,30 +93,66 @@ $(document).ready(function() {
     });
   });
 
-  // $("#inbox").on("click", function() {
-  //   console.log("clicked inbox!");
-  //   console.log($("#inbox").attr("data-state"));
-  //   $(this).attr("data-state", "true");
-  //   console.log($("#inbox").attr("data-state"));
-  //   $(this).siblings().attr("data-state", "false");
-    
+  $("#reply-submit").on("click", function() {
+    var userId = $("#user-info").attr("userId");
+    var destination = $("#inbox-content-header").attr("data-receiver");
+    var newMessage = $("#reply-textarea").val();
+    var date = new Date();
+    var nowTs = Date.now();
+
+    // var originalLength = $("#inbox-"+destination).children().length;
+    $.ajax({
+      type  : "POST",
+      url   : "/v1/sms",
+      data  : JSON.stringify({
+        destination : "+" + destination,
+        message     : newMessage,
+        timestamp   : nowTs,
+        userId      : userId
+      }),
+      contentType       : "json",
+      dataType          : "json",
+      complete    : function(xhr) {
+        var response = JSON.parse(xhr.responseText);
+        if (xhr.status === 200) {
+           var newMessage = $("#reply-textarea").val("");
+           // var newLength = $("#inbox-"+destination).children().length;
+        } else {
+          console.log("Encountered error: " + JSON.stringify(response));
+          viewResponse("error", xhr.status, response.message);
+        }
+      }
+    });
+  });
+
+  // $(".menu-labels").on("click", function() {
+  //   var state = $(this).attr("data-state");
+  //   $(this).addClass("nav-menu-selected");
+  //   $(this).siblings().removeClass("nav-menu-selected");
   // });
 
-  // $("#composer").on("click", function() {
-  //   console.log("clicked composer!");
-  //   $(this).attr("data-state", "true");
-  //   $(this).siblings().attr("data-state", "false");
-  // });
+  $("#composer").on("click", function() {
+    $("#inbox-content-header").addClass("hidden");
+    $(".reply-div").addClass("hidden");
+  });
 
-});
-
-$(document).on("click", "div.nav-menu-label", function() {
-  // $(".menu-message").removeClass("hidden");
 });
 
 $(document).on("click", "a.menu-message", function() {
   var elemId = $(this).attr("id");
   var id = elemId.split("-")[1];
+
+  $("#inbox-content-header").text(id);
+  $("#inbox-content-header").attr("data-receiver", id);
+  $("#inbox-content-header").removeClass("hidden");
+
   $("#inbox-"+id).removeClass("hidden");
   $("#inbox-"+id).siblings().addClass("hidden");
+
+  $(".reply-div").removeClass("hidden");
+
+  $("#inbox-"+id).animate({
+    scrollTop: $("#inbox-"+id).get(0).scrollHeight
+  });
+
 });

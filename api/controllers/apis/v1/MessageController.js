@@ -15,10 +15,19 @@ module.exports = {
           });
         }
 
-        return callback();
+        var destination = req.body.destination;
+        if (req.body.destination[0] === "0") {
+          destination = "63" + req.body.destination.substr(1);
+        } else if (req.body.destination[0] === "+") {
+          destination = req.body.destination.substr(1);
+        }
+
+        return callback(null, {
+          destination: destination
+        });
       },
 
-      getToken: function(callback) {
+      checkToken: function(callback) {
         Cache.client.get("echo:" + req.body.userId, function(err, result) {
           if (err || !result) {
             req.session.destroy(function(err) {});
@@ -31,15 +40,73 @@ module.exports = {
             });
           }
 
-          var tokenDetails = result.split(":")[0];
-          var token = tokenDetails.split("=")[1];
+          var tokens = result.split(":");
+          var ansibleToken = tokens[0].split("=")[1];
+          var refreshToken = tokens[1].split("=")[1];
+          var decoded = jwt.decode(ansibleToken, {complete: true});
+          var now = Date.now() / 1000;
+          
           callback(null, {
-            ansibleToken: token
+            refresh: (now >= decoded.payload.exp) ? true : false,
+            ansibleToken: ansibleToken,
+            refreshToken: refreshToken,
+            userId: decoded.payload.sub
           });
         });
       },
 
-      toVcm: ["validate", "getToken", function(callback, result) {
+      getToken: ["validate", "checkToken", function(callback, result) {
+        if (!result.checkToken.refresh) {
+          return callback(null, {
+            ansibleToken: result.checkToken.ansibleToken
+          });
+        }
+
+        var basic = "Basic " + new Buffer(sails.config.ansible.username + ":" + 
+          sails.config.ansible.password).toString("base64");
+        request.get({
+          url: sails.config.url.token,
+          headers: {
+            authorization: basic,
+            "x-jwt": result.checkToken.ansibleToken
+          },
+          qs: {
+            type: "refresh",
+            token: result.checkToken.refreshToken
+          }
+        }, function(err, resp) {
+          if (err) {
+            return callback({
+              status: 503,
+              error: {
+                code: -1,
+                message: "System encountered error"
+              }
+            });
+          }
+
+          if (resp.statusCode !== 200) {
+            return callback({
+              status: resp.statusCode,
+              error: JSON.parse(resp.body)
+            }); 
+          }
+
+          var response = JSON.parse(resp.body);
+          var decoded = jwt.decode(response.api_token, {complete: true});
+          // Update token stored in Redis
+          var expiry = decoded.payload.exp - decoded.payload.iat - 10;
+          var key = "echo:" + req.body.userId;
+          var value = "access_token=" + response.api_token + ":refresh_token=" + response.api_refresh_token;
+          Cache.client.set(key, value, function(err, result) {});
+
+          return callback(null, {
+            ansibleToken: response.api_token
+          });
+        });
+      }],
+
+      toVcm: ["getToken", function(callback, result) {
         request.post({
           url: sails.config.url.sms,
           headers: {
@@ -47,7 +114,7 @@ module.exports = {
             "X-JWT": result.getToken.ansibleToken
           },
           body: JSON.stringify({
-            destination: req.body.destination,
+            destination: "+" + result.validate.destination,
             message: req.body.message
           })
         }, function(err, resp) {
@@ -72,13 +139,28 @@ module.exports = {
         });
       }],
 
-      toFirebase: ["validate", "getToken", function(callback, result) {
-        var decoded = jwt.decode(result.getToken.ansibleToken, {complete: true});
-        var userId = decoded.payload.sub;
-        var destination = req.body.destination
-        FirebaseService.write(userId, destination.substr(1), req.body.message, req.body.timestamp);
+      toFirebaseQueue: ["getToken", function(callback, result) {
+        var userId = result.checkToken.userId;
+        var destination = result.validate.destination;
+        FirebaseService.write("messages/ipcs", userId, destination, req.body.message, 
+          req.body.timestamp);
         return callback();
-      }]
+      }],
+
+      toFirebaseArchive: ["getToken", function(callback, result) {
+        var destination = result.validate.destination;
+        var userId = result.checkToken.userId;
+        FirebaseService.write("conversations", userId, destination, req.body.message, 
+          req.body.timestamp);
+        return callback();
+      }],
+
+      // toFirebaseContacts: ["getToken", function(callback, result) {
+      //   var destination = req.body.destination
+      //   var userId = result.getToken.userId;
+      //   FirebaseService.writeMeta("conversations-meta", userId, destination.substr(1));
+      //   return callback();
+      // }]
 
     }, function(error, result) {
       if (error) {
