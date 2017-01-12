@@ -223,6 +223,10 @@ a, a:hover, a:active, a:link {
   font-weight: 300;
   font-size: 18px;
   margin-bottom: 6px;
+  border-top: solid;
+  border-bottom: solid;
+  border-color: white;
+  border-width: thin;
   overflow-y: scroll;
   cursor: pointer;
 }
@@ -315,18 +319,14 @@ a, a:hover, a:active, a:link {
 }
 
 .message-list-member-me {
-  width: 350px;
-  margin-left: 222px;
+  width: 320px;
+  margin-left: 244px;
   background-color: #cccccc;
   color: #3b5998;
 }
 
-.arrow {
-
-}
-
 .message-list-member-partner {
-  width: 350px;
+  width: 320px;
   background-color: #3b5998;
   color: #ffffff;
 }
