@@ -95,12 +95,11 @@ $(document).ready(function() {
 
   $("#reply-submit").on("click", function() {
     var userId = $("#user-info").attr("userId");
-    var destination = $("#inbox-content-header").attr("data-receiver");
+    var destination = $(".contacts-member-selected").html();
     var newMessage = $("#reply-textarea").val();
     var date = new Date();
     var nowTs = Date.now();
 
-    // var originalLength = $("#inbox-"+destination).children().length;
     $.ajax({
       type  : "POST",
       url   : "/v1/sms",
@@ -116,7 +115,6 @@ $(document).ready(function() {
         var response = JSON.parse(xhr.responseText);
         if (xhr.status === 200) {
            var newMessage = $("#reply-textarea").val("");
-           // var newLength = $("#inbox-"+destination).children().length;
         } else {
           console.log("Encountered error: " + JSON.stringify(response));
           viewResponse("error", xhr.status, response.message);
@@ -131,7 +129,6 @@ $(document).ready(function() {
 
 });
 
-// $(document).on("click", "a.menu-message", function() {
 $(document).on("click", "div.contacts-member", function() {
   var elemId = $(this).attr("id");
   var id = elemId.split("-")[2];
