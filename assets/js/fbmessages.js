@@ -12,6 +12,8 @@ $(document).ready(function() {
   var convo = db.child("conversations/" + fbId);
   convo.on("value", function(snapshot) {
 
+    console.log("===Firebase Data===");
+    console.log(snapshot.val());
     if (!snapshot.val()) {
       // Show empty
       return false;
