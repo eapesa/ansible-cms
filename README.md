@@ -1,7 +1,7 @@
-![Echo Logo](https://github.com/eapesa/ansible-cms/raw/master/assets/images/ic_echo_name.png)
-
-Echo
-----
+<p align="center">
+  <img src="https://github.com/eapesa/ansible-cms/raw/master/assets/images/ic_echo_name.png" />
+</p>
+<hr/>
 
 Web application for showcasing IP-CS and CS-IP capability of Ansible Messaging App.
 
